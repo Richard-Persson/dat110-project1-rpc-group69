@@ -2,6 +2,7 @@ package no.hvl.dat110.messaging;
 
 
 import java.net.Socket;
+import java.net.SocketAddress;
 
 import no.hvl.dat110.TODO;
 
@@ -23,8 +24,10 @@ public class MessagingClient {
 
 		// client-side socket for underlying TCP connection to messaging server
 		Socket clientSocket;
-
 		MessageConnection connection = null;
+
+		port = MessageUtils.MESSAGINGPORT;
+		server = MessageUtils.MESSAGINGHOST;
 		
 		// TODO - START
 		// connect to messaging server using a TCP socket
