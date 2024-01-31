@@ -18,8 +18,9 @@ public class MessageUtils {
 		int length = message.getData().length;
 		
 		// TODO - START
-		for(byte i : data)
-			segment[i+1] = data[i];
+		for(int i = 0; i<data.length; i++)
+			segment[i + 1] = data[i];
+
 
 		segment[0] = (byte) length;
 			
@@ -38,7 +39,8 @@ public class MessageUtils {
 		
 	for(byte b = 0; b<segment[0]; b++)
 		messageByte[b] = segment[b+1];
-		message = new Message(messageByte);
+
+	message = new Message(messageByte);
 		// TODO - END
 		
 		return message;

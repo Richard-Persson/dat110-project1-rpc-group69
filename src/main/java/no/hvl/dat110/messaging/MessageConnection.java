@@ -52,8 +52,7 @@ public class MessageConnection {
 		
 		// TODO - START
 		// read a segment from the input stream and decapsulate data into a Message
-		
-		data = inStream.readNBytes(128);
+		data = inStream.readAllBytes();
 		message = MessageUtils.decapsulate(data);
 		// TODO - END
 		
