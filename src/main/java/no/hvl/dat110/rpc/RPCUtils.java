@@ -7,32 +7,26 @@ import no.hvl.dat110.TODO;
 public class RPCUtils {
 	
 	public static byte[] encapsulate(byte rpcid, byte[] payload) {
-		
-		byte[] rpcmsg = null;
-		
+
 		// TODO - START
-		
-		// Encapsulate the rpcid and payload in a byte array according to the RPC message syntax / format
-		
-		if (true)
-			throw new UnsupportedOperationException(TODO.method());
-		
+		// Allocating space in buffer //
+		ByteBuffer buffer = ByteBuffer.allocate(payload.length+1);
+		//Pack it in
+		buffer.put(rpcid);
+		buffer.put(payload);
 		// TODO - END
 		
-		return rpcmsg;
+		return buffer.array();
 	}
 	
 	public static byte[] decapsulate(byte[] rpcmsg) {
-		
-		byte[] payload = null;
-		
+
 		// TODO - START
-		
+		ByteBuffer buffer = ByteBuffer.wrap(rpcmsg);
 		// Decapsulate the rpcid and payload in a byte array according to the RPC message syntax
-		
-		if (true)
-			throw new UnsupportedOperationException(TODO.method());
-		
+		byte rpcid = buffer.get();
+		byte[] payload = new byte[buffer.remaining()];
+		buffer.get(payload);
 		// TODO - END
 		
 		return payload;
@@ -70,26 +64,11 @@ public class RPCUtils {
 	}
 	
 	public static byte[] marshallVoid() {
-		
-		byte[] encoded = null;
-		
-		// TODO - START 
-		
-		if (true)
-			throw new UnsupportedOperationException(TODO.method());
-				
-		// TODO - END
-		
-		return encoded;
+		return new byte[0];
 		
 	}
 	
 	public static void unmarshallVoid(byte[] data) {
-		
-		// TODO
-		
-		if (true)
-			throw new UnsupportedOperationException(TODO.method());
 		
 	}
 
