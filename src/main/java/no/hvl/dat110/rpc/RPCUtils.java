@@ -20,15 +20,20 @@ public class RPCUtils {
 	}
 	
 	public static byte[] decapsulate(byte[] rpcmsg) {
+		int plength = rpcmsg.length - 1;
+		byte[] payload = new byte[plength >= 1 ? plength : 0];
+
 
 		// TODO - START
-		ByteBuffer buffer = ByteBuffer.wrap(rpcmsg);
-		// Decapsulate the rpcid and payload in a byte array according to the RPC message syntax
-		byte rpcid = buffer.get();
-		byte[] payload = new byte[buffer.remaining()];
-		buffer.get(payload);
-		// TODO - END
-		
+		if (plength >= 1) {
+			ByteBuffer buffer = ByteBuffer.wrap(rpcmsg);
+			// Decapsulate the rpcid and payload in a byte array according to the RPC message syntax
+			byte rpcid = buffer.get();
+			payload = new byte[buffer.remaining()];
+			buffer.get(payload);
+			// TODO - END
+		}
+
 		return payload;
 		
 	}
