@@ -3,6 +3,8 @@ package no.hvl.dat110.rpc;
 import no.hvl.dat110.TODO;
 import no.hvl.dat110.messaging.*;
 
+import java.io.IOException;
+
 public class RPCClient {
 
 	// underlying messaging client used for RPC communication
@@ -16,13 +18,12 @@ public class RPCClient {
 		msgclient = new MessagingClient(server,port);
 	}
 	
-	public void connect() {
+	public void connect() throws IOException {
 		
 		// TODO - START
 		// connect using the RPC client
-		
-		if (true)
-			throw new UnsupportedOperationException(TODO.method());
+
+		msgclient.connect();
 		
 		// TODO - END
 	}
@@ -31,6 +32,7 @@ public class RPCClient {
 		
 		// TODO - START
 		// disconnect by closing the underlying messaging connection
+		connection.close();
 		
 		if (true)
 			throw new UnsupportedOperationException(TODO.method());
@@ -45,7 +47,7 @@ public class RPCClient {
 	 param is the marshalled parameter of the method to be called
 	 */
 
-	public byte[] call(byte rpcid, byte[] param) {
+	public byte[] call(byte rpcid, byte[] param)  {
 		
 		byte[] returnval = null;
 		
@@ -58,7 +60,10 @@ public class RPCClient {
 		The return value from the RPC call must be decapsulated according to the RPC message format
 
 		*/
-				
+
+		RPCUtils.encapsulate(rpcid,param);
+		returnval = RPCUtils.decapsulate(param);
+
 		if (true)
 			throw new UnsupportedOperationException(TODO.method());
 		

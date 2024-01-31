@@ -1,5 +1,6 @@
 package no.hvl.dat110.rpc;
 
+import java.io.IOException;
 import java.util.HashMap;
 
 import no.hvl.dat110.TODO;
@@ -23,7 +24,7 @@ public class RPCServer {
 		
 	}
 	
-	public void run() {
+	public void run()  {
 		
 		// the stop RPC method is built into the server
 		RPCRemoteImpl rpcstop = new RPCServerStopImpl(RPCCommon.RPIDSTOP,this);
@@ -43,9 +44,15 @@ public class RPCServer {
 		   
 		   // TODO - START
 		   // - receive a Message containing an RPC request
-		   // - extract the identifier for the RPC method to be invoked from the RPC request
+            try {
+				requestmsg = connection.receive();
+			} catch (IOException e) {throw new RuntimeException(e);}
+            // - extract the identifier for the RPC method to be invoked from the RPC request
+			byte RPCID = requestmsg.getData()[0];
 		   // - extract the method's parameter by decapsulating using the RPCUtils
+			byte[] decapsulatedData = RPCUtils.decapsulate(requestmsg.getData());
 		   // - lookup the method to be invoked
+
 		   // - invoke the method and pass the param
 		   // - encapsulate return value 
 		   // - send back the message containing the RPC reply
