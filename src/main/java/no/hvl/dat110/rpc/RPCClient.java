@@ -22,8 +22,7 @@ public class RPCClient {
 		
 		// TODO - START
 		// connect using the RPC client
-
-		msgclient.connect();
+		connection = msgclient.connect();
 		
 		// TODO - END
 	}
@@ -32,16 +31,12 @@ public class RPCClient {
 		
 		// TODO - START
 		// disconnect by closing the underlying messaging connection
-		connection.close();
-		
-		if (true)
-			throw new UnsupportedOperationException(TODO.method());
-		
+			connection.close();
 		// TODO - END
 	}
 
 	/*
-	 Make a remote call om the method on the RPC server by sending an RPC request message and receive an RPC reply message
+	 Make a remote call on the method on the RPC server by sending an RPC request message and receive an RPC reply message
 
 	 rpcid is the identifier on the server side of the method to be called
 	 param is the marshalled parameter of the method to be called
@@ -50,6 +45,8 @@ public class RPCClient {
 	public byte[] call(byte rpcid, byte[] param)  {
 		
 		byte[] returnval = null;
+		Message recieved;
+
 		
 		// TODO - START
 
@@ -61,12 +58,20 @@ public class RPCClient {
 
 		*/
 
-		RPCUtils.encapsulate(rpcid,param);
-		returnval = RPCUtils.decapsulate(param);
+		byte [] bytemsg = RPCUtils.encapsulate(rpcid,param);
+		Message message = new Message(bytemsg);
 
-		if (true)
-			throw new UnsupportedOperationException(TODO.method());
-		
+        try {
+            connection.send(message);
+        } catch (IOException e) {throw new RuntimeException(e);}
+
+
+        try {
+            recieved = connection.receive();
+        } catch (IOException e) {throw new RuntimeException(e);}
+
+        returnval = RPCUtils.decapsulate(recieved.getData());
+
 		// TODO - END
 		return returnval;
 		
