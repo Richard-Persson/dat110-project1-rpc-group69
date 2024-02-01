@@ -44,13 +44,19 @@ public class RPCUtils {
 		byte[] encoded = null;
 		
 		// TODO - START 
-		
-		if (true)
-			throw new UnsupportedOperationException(TODO.method());
-		
-		// TODO - END
-		
-		return encoded;
+
+		try{
+			//Spesifiserer charset til UTF-8
+			encoded = str.getBytes("UTF-8");
+		} catch (UnsupportedOperationException e){
+			System.out.println(e);
+		} finally {
+
+
+			// TODO - END
+
+			return encoded;
+		}
 	}
 
 	// convert byte array to a String
@@ -59,9 +65,10 @@ public class RPCUtils {
 		String decoded = null; 
 		
 		// TODO - START 
-		
-		if (true)
-			throw new UnsupportedOperationException(TODO.method());
+
+		if (data != null) {
+			decoded = new String(data, java.nio.charset.StandardCharsets.UTF_8);
+		}
 		
 		// TODO - END
 		
