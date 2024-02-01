@@ -89,13 +89,7 @@ public class RPCUtils {
 		
 		byte[] encoded = new byte[1];
 				
-		if (b) {
-			encoded[0] = 1;
-		} else
-		{
-			encoded[0] = 0;
-		}
-		
+		encoded[0] = (byte) (b ? 1 : 0);
 		return encoded;
 	}
 
@@ -108,32 +102,15 @@ public class RPCUtils {
 
 	// integer to byte array representation
 	public static byte[] marshallInteger(int x) {
-		
-		byte[] encoded = null;
-		
-		// TODO - START 
-		
-		if (true)
-			throw new UnsupportedOperationException(TODO.method());
-		
-		// TODO - END
-		
-		return encoded;
+		ByteBuffer buffer = ByteBuffer.allocate(Integer.BYTES); // BYTES er 4 av default grunn
+		buffer.putInt(x);
+		return buffer.array();
 	}
 	
 	// byte array representation to integer
 	public static int unmarshallInteger(byte[] data) {
-		
-		int decoded = 0;
-		
-		// TODO - START 
-		
-		if (true)
-			throw new UnsupportedOperationException(TODO.method());
-		
-		// TODO - END
-		
-		return decoded;
+		ByteBuffer buffer = ByteBuffer.wrap(data);
+		return buffer.getInt();
 		
 	}
 }
