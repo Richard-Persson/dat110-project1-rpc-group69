@@ -9,7 +9,7 @@ public class DisplayStub extends RPCLocalStub {
 		super(rpcclient);
 	}
 	
-	public void write (String message) {
+	public void 	write (String message) {
 		
 		// TODO - START
 
@@ -18,7 +18,7 @@ public class DisplayStub extends RPCLocalStub {
 
 		byte[] response = rpcclient.call((byte) Common.WRITE_RPCID,msg);
 
-		RPCUtils.unmarshallVoid(response);
+		String reply = RPCUtils.unmarshallString(response);
 		
 		// TODO - END
 		
